@@ -27,14 +27,14 @@ pipeline {
     stage('Copy JAR Locally') {
       steps {
         script {
-          sh 'cp ./target/spring-boot-web.jar /home/spring-boot-web.jar'
+          sh 'cp ./target/spring-boot-web.jar /tmp/spring-boot-web.jar'
         }
       }
     }
     stage('Run JAR File') {
       steps {
         script {
-          sh 'nohup java -jar /home/spring-boot-web.jar > /home/spring-boot-web.log 2>&1 &'
+          sh 'nohup java -jar /tmp/spring-boot-web.jar > /tmp/spring-boot-web.log 2>&1 &'
           sh 'echo "Application started successfully!"'
         }
       }
