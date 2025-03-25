@@ -2,13 +2,17 @@ pipeline {
     agent {
         docker {
             image 'adi089/javatest:latest'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock -w /opt/app'
         }
     }
     stages {
-        stage('Debug') {
+        stage('Verify Files') {
             steps {
-                sh 'pwd && ls -l'
+                sh 'pwd && ls -l /opt/app'
+            }
+        }
+        stage('Run Application') {
+            steps {
+                sh 'java -jar /opt/app/app.jar'
             }
         }
     }
