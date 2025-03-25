@@ -1,11 +1,12 @@
 FROM openjdk:17-jdk-slim
 
 # Simply the artifact path
-ARG artifact=target/spring-boot-web.jar
 
 WORKDIR /opt/app
 
-COPY ${artifact} app.jar
+COPY target/spring-boot-web.jar app.jar
+
+RUN chmod +x /opt/app/app.jar
 
 # This should not be changed
 ENTRYPOINT ["java","-jar","app.jar"]
