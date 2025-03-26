@@ -1,5 +1,6 @@
 pipeline {
   agent any // Runs on any available Jenkins agent/node
+
   stages {
     stage('Checkout') {
       steps {
@@ -7,13 +8,19 @@ pipeline {
         // git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
+
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
         // Build the project and create a JAR file
         sh 'mvn clean package'
+        // Run unit tests after build
+        sh 'mvn test'
+        // Collect and publish the test results
+        junit '**/target/surefire-reports/TEST-*.xml'
       }
     }
+
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://108.129.144.230:9000/"
@@ -24,6 +31,7 @@ pipeline {
         }
       }
     }
+
     stage('Copy JAR Locally') {
       steps {
         script {
@@ -31,6 +39,7 @@ pipeline {
         }
       }
     }
+
     stage('Run JAR File') {
       steps {
         script {
@@ -39,6 +48,7 @@ pipeline {
         }
       }
     }
+
     // stage('Build and Push Docker Image') {
     //   environment {
     //     DOCKER_IMAGE = "adi089/javafile:${BUILD_NUMBER}"
@@ -54,6 +64,7 @@ pipeline {
     //     }
     //   }
     // }
+
     stage('Update Deployment File') {
       environment {
         GIT_REPO_NAME = "cicd"
