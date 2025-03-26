@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.aditya</groupId>
+    <groupId>com.abhishek</groupId>
     <artifactId>spring-boot-demo</artifactId>
     <version>1.0</version>
     <name>spring-boot-demo</name>
@@ -93,12 +93,13 @@
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <includes>
-                        <include>**/*Test.java</include> <!-- Match test classes -->
+                        <include>**/*Tests.java</include>
                     </includes>
-                    <reportFormat>plain</reportFormat>
-                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory> <!-- Store reports here -->
+                    <reportFormat>xml</reportFormat> <!-- Changed to XML format for better integration with Jenkins -->
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
